@@ -12,11 +12,11 @@ We create a DockerFile to build a docker image of integration test, this image w
 1. Rendering the environment file (during the container initiation)
 
 ## Required environment variables:
-APPLINCE_IP: IP address of a CFME appliance
-WHARF_IP: IP address of a selenium server, we decided to work with Whorf
-WHARF_PORT: Port of a selenium container
-CONF_PATH: Path of integration test config files
-YAYCL_CRYPT_KEY: Key for credentials decryption
+* APPLINCE_IP: IP address of a CFME appliance
+* WHARF_IP: IP address of a selenium server, we decided to work with Whorf
+* WHARF_PORT: Port of a selenium container
+* CONF_PATH: Path of integration test config files
+* YAYCL_CRYPT_KEY: Key for credentials decryption
 
 ## Author spacial parameters
 If a result file (XUnit or JUnit) is required you may have to share a host filesystem with the container.
