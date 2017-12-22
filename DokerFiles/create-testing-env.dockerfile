@@ -15,6 +15,8 @@ RUN dnf update -y \
     && cp ../cfme-qe-yamls/complete/cfme_data.yaml conf/ \
     && cp ../cfme-qe-yamls/complete/credentials.eyaml conf/ \
     && cp ../cfme-qe-yamls/complete/env.yaml conf/ \
-    && python scripts/encrypt_conf.py -d --file credentials
+
 ENTRYPOINT /integration_tests
-CMD python /env_reander.py
+
+CMD python scripts/encrypt_conf.py -d --file credentials \
+    && python /env_reander.py
