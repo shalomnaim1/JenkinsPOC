@@ -13,7 +13,7 @@ def get_varible(var_name, defualt=None):
     print "\033[01;31mEnvironment valiable {var_name} was not exist on system, setting value to dufualt ({defualt})\033[00m".format(var_name=var_name, defualt=defualt)
     return defualt
 
-config_data = {"appliance_ip":get_varible("APPLIANCE_IP"),"wharf_ip":get_varible("WHARF_IP"),"worf_port":get_varible("WORF_PORT")}
+config_data = {"appliance_ip":get_varible("APPLIANCE_IP"),"wharf_ip":get_varible("WHARF_IP"),"worf_port":get_varible("WHARF_PORT")}
 
 #Load Jinja2 template
 env = Environment(loader = FileSystemLoader('.'), trim_blocks=True, lstrip_blocks=True)
