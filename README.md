@@ -40,4 +40,5 @@ docker run -d
            -e WHARF_IP 5.6.7.8
            -e WHARF_PORT 80
            -e CONF_PATH /integration_tests/conf
-           -e YAYCL_CRYPT_KEY <decipher key>
+           -e YAYCL_CRYPT_KEY <decipher key> 
+           pytest /integration_test/cfme/tests/containers/test_basic_metrics.py --use-provider cm-env2 --junitxml /tmp/my_xunit.xml
