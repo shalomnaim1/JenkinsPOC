@@ -3,14 +3,17 @@ FROM fedora
 ENV PYCURL_SSL_LIBRARY "openssl"
 ENV GIT_SSL_NO_VERIFY false 
 
-ADD env_reander.py / 
-ADD setup.sh /
-ADD env.yaml.template /
+ADD resources/lease_appliance.py /
+ADD resources/requirements-additional.txt /
+ADD resources/render_env.py / 
+ADD resources/setup.sh /
+ADD resources/env.yaml.template /
 
 RUN dnf update -y \
     && dnf install -y git docutils python vim \
     && curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" \
     && python get-pip.py \
+    && pip install -Ur requirements-additional.txt \
     && git clone https://github.com/ManageIQ/integration_tests.git \
     && git clone https://gitlab.cee.redhat.com/cfme-qe/cfme-qe-yamls.git \
     && cd integration_tests \

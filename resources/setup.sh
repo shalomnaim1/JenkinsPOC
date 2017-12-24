@@ -7,7 +7,7 @@ python scripts/encrypt_conf.py -d --file credentials
 
 echo "Rendering env.yaml"
 popd
-python /env_reander.py
+python /render_env.py
 
 set +x
 
