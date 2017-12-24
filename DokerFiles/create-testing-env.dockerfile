@@ -20,5 +20,4 @@ RUN dnf update -y \
     && easy_install numpy \
     && rm -f conf/* \
     && cp ../cfme-qe-yamls/complete/cfme_data.yaml conf/ \
-    && cp ../cfme-qe-yamls/complete/credentials.eyaml conf/ \
-    && cp ../cfme-qe-yamls/complete/env.yaml conf/
+    && cp ../cfme-qe-yamls/complete/credentials.eyaml conf/
