@@ -1,4 +1,5 @@
 import time
+import os
 
 from cfme.test_framework.sprout.plugin import (SproutProvisioningRequest,
                                                SproutManager)
@@ -20,7 +21,9 @@ def get_appliance(stream, timeout=12*60, provision_timeout=60, version=None, dat
     print("appliance data:")
     for app in appliance_data:
         print("    {}: {}\n".format(app['name'], app['ip_address']))
-    return [app['ip_address'] for app in appliance_data]
+    
+    os.environ["APPLINCE_IP"] = [app['ip_address'] for app in appliance_data].pop()
+    return os.environ["APPLINCE_IP"]
 
 
 def destroy_appliances():

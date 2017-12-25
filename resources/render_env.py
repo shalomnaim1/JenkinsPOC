@@ -7,16 +7,13 @@ from termcolor import colored
 from resources.lease_appliance import get_appliance
 
 
-def get_varible(var_name, default=None):
+def get_varible(var_name, defualt=None):
     if var_name in os.environ:
         return os.environ[var_name]
     print(colored('Environment variable {var_name} was not exist on system,'
                   ' setting value to default ({default})', 'red', attrs=['bold'])
           .format(var_name=var_name, default=default))
     return default
-
-if 'APPLIANCE_IP' not in os.environ:
-    os.environ['APPLIANCE_IP'] = get_appliance()
 
 config_data = {
     "appliance_ip": get_varible("APPLIANCE_IP"),
