@@ -1,5 +1,6 @@
 import time
 import os
+import argparse
 
 from cfme.test_framework.sprout.plugin import (SproutProvisioningRequest,
                                                SproutManager)
@@ -33,6 +34,14 @@ def destroy_appliances():
 
 if __name__ == '__main__':
 
-    app_ip = get_appliance('downstream-59z')
-    time.sleep(60)
-    destroy_appliances()
+    parser = argparse.ArgumentParser(description='Lease appliance script', add_help=True)
+    parser.add_argument('--action', choices=['lease', 'destroy'] ,required=True, help="Action to do [lease or destroy]")
+    parser.add_argument('--stream', type=str ,help="Vesrion of CFME to lease")
+    
+    args = parser.parse_args()
+    
+    actions = {"lease": get_appliance, "destroy":destroy_appliances}
+    actions_args = {"lease": {args.stream}, "destroy": {}}
+    
+    actions[args.action](**actions_args[args.action])
+
