@@ -4,16 +4,16 @@ import os
 from jinja2 import Environment, FileSystemLoader
 from termcolor import colored
 
-from DokerFiles.lease_appliance import get_appliance
+from resources.lease_appliance import get_appliance
 
 
-def get_varible(var_name, defualt=None):
+def get_varible(var_name, default=None):
     if var_name in os.environ:
         return os.environ[var_name]
     print(colored('Environment variable {var_name} was not exist on system,'
                   ' setting value to default ({default})', 'red', attrs=['bold'])
-          .format(var_name=var_name, defualt=defualt))
-    return defualt
+          .format(var_name=var_name, default=default))
+    return default
 
 if 'APPLIANCE_IP' not in os.environ:
     os.environ['APPLIANCE_IP'] = get_appliance()
@@ -21,7 +21,8 @@ if 'APPLIANCE_IP' not in os.environ:
 config_data = {
     "appliance_ip": get_varible("APPLIANCE_IP"),
     "wharf_ip": get_varible("WHARF_IP"),
-    "worf_port": get_varible("WHARF_PORT")
+    "wharf_port": get_varible("WHARF_PORT"),
+    "sprout_url": get_varible("SPROUT_URL")
 }
 
 # Load Jinja2 template
