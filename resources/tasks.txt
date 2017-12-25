@@ -1,6 +1,0 @@
-replace the links with files copy - Done
-install numpy using easy install - Done
-decode the credentials file -Done
-write a script which genarete env.yaml
-share file system to host for supply xunit file
-
