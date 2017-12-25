@@ -1,0 +1,2 @@
+# These are additional requirements which not included in integration_tests
+termcolor==1.1.0
