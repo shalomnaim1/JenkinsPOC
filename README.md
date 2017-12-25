@@ -8,11 +8,10 @@ We create a DockerFile to build a docker image of integration test, this image w
 1. Export the relevant environment variables
 1. Install all the dependencies
 1. Placing configuration files
-1. decrypt of the credential
+1. decrypt of the credential (during the container initiation)
 1. Rendering the environment file (during the container initiation)
 
 ## Required environment variables:
-* APPLINCE_IP: IP address of a CFME appliance
 * WHARF_IP: IP address of a selenium server, we decided to work with Whorf
 * WHARF_PORT: Port of a selenium container
 * CONF_PATH: Path of integration test config files
@@ -37,10 +36,10 @@ The container will start in detach mode (run in the background)
 ```{bash}
 docker run -d
            -v /tmp/results:/tmp --privileged
-           -e APPLINCE_IP 1.2.3.4
-           -e WHARF_IP 5.6.7.8
-           -e WHARF_PORT 80
-           -e CONF_PATH /integration_tests/conf
-           -e YAYCL_CRYPT_KEY <decipher key> 
-           -e SPROUT_URL <sprout_url>
+           --env WHARF_IP=5.6.7.8
+           --env WHARF_PORT=80
+           --env CONF_PATH=/integration_tests/conf
+           --env YAYCL_CRYPT_KEY=<decipher key>
+           --env SPROUT_URL=<sprout_url>
+           --env STREAM=<stream>
            pytest /integration_test/cfme/tests/containers/test_basic_metrics.py --use-provider cm-env2 --junitxml /tmp/my_xunit.xml

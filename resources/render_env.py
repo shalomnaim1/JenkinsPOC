@@ -2,9 +2,10 @@
 import os
 
 from jinja2 import Environment, FileSystemLoader
-from termcolor import coloredskip_warning=
+from termcolor import colored
+import argparse
 
-def get_varible(var_name, defualt=None, skip_warning=False):
+def get_varible(var_name, default=None, skip_warning=False):
     if var_name in os.environ:
         return os.environ[var_name]
 
