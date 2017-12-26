@@ -1,16 +1,19 @@
 #!/bin/bash
-set -x
+set -xe
 
-python /render_env.py --skip_warning
-
-echo "Decrypting credentials"
 pushd integration_tests
+echo "Setting basic env.yml"
+python env_maintainer.py --action setup --populate_sprout_only --sprout_url $SPROUT_URL --config_path $CONF_PATH
+
+echo "Decrypting credentials yaml"
+
 python scripts/encrypt_conf.py -d --file credentials
-python lease_appliance.py --action "lease"  --stream $STREAM
-
-echo "Rendering env.yaml"
-popd
-python /render_env.py
-
+echo "lease an appliance fro sproute and updating env.yml accordingly"
+python env_maintainer.py --action setup \
+                         --lease_appliance \
+                         --stream $STREAM \
+                         --wharf_ip $WHARF_IP \
+                         --wharf_port $WHARF_PORT \
+                         --sprout_url $SPROUT_URL \
+                         --config_path $CONF_PATH
 set +x
-

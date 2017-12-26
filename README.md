@@ -42,4 +42,6 @@ docker run -d
            --env YAYCL_CRYPT_KEY=<decipher key>
            --env SPROUT_URL=<sprout_url>
            --env STREAM=<stream>
-           pytest /integration_test/cfme/tests/containers/test_basic_metrics.py --use-provider cm-env2 --junitxml /tmp/my_xunit.xml
+           bin/sh -c "sh setup.sh
+                    cd integrations_tests
+                    pytest /integration_test/cfme/tests/containers/test_basic_metrics.py --use-provider cm-env2 --junitxml /tmp/my_xunit.xml"

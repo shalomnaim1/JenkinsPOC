@@ -4,9 +4,9 @@ ENV PYCURL_SSL_LIBRARY "openssl"
 ENV GIT_SSL_NO_VERIFY false 
 
 ADD resources/requirements-additional.txt /
-ADD resources/render_env.py / 
 ADD resources/setup.sh /
-ADD resources/env.yaml.template /
+ADD resources/env.yaml.sprout.template /
+ADD resources/env.yaml.full.template /
 
 RUN dnf update -y \
     && dnf install -y git docutils python vim \
@@ -24,5 +24,5 @@ RUN dnf update -y \
     && cp ../cfme-qe-yamls/complete/cfme_data.yaml conf/ \
     && cp ../cfme-qe-yamls/complete/credentials.eyaml conf/
 
-ADD resources/lease_appliance.py /integration_tests
+ADD resources/env_maintainer.py /integration_tests
 
