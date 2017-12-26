@@ -40,10 +40,10 @@ class lease_applince():
 
 class config_util():
 
-    def __init__(self, selected_population, target_file_path, **config_params_kwargs):
+    def __init__(self, selected_population, target_file_path, config_params):
         self.env = Environment(loader=FileSystemLoader('../'), trim_blocks=True, lstrip_blocks=True)
         self.template = self.env.get_template(FULL_ENV if selected_population == "full" else SPROUT_ONLY)
-        self.config_data = config_params_kwargs
+        self.config_data = config_params
         self.conf_path = target_file_path
 
     def setup_env(self):
@@ -54,18 +54,27 @@ class config_util():
             for line in self.template.render(self.config_data):
                 outFile.write(line)
 
+
 def validate_params(args):
     if args.populate_sprout_only and any([args.stream, args.appliance,
                                           args.stream, args.wharf_ip, args.wharf_port, args.lease_appliance]):
         print colored("Warning: ignoring all params\nrunning populate_sprout_only procedure!", 'yellow', attrs=['bold'])
         return True
-    if args.action == "setup" and not all([(args.appliance ^ (args.stream and args.lease_appliance)), args.stream,
-                                 args.wharf_ip, args.wharf_port]):
-        print colored("Error: Missing parameters\too many parameters was set", 'red', attrs=['bold'])
+
+    if args.action == "setup":
+        if all([args.populate_sprout_only, args.sprout_url, args.config_path]) and \
+                not all([args.appliance, args.stream, args.lease_appliance, args.wharf_ip, args.wharf_port]):
+            return True
+        elif all([(args.lease_appliance and bool(args.stream)) ^ args.appliance, args.wharf_ip,
+                  args.wharf_port, args.sprout_url, args.config_path]):
+            return True
+
+        print colored("Error: Wrong parameter combination used", 'red', attrs=['bold'])
         return False
 
     if args.action == "destroy" and any([args.stream, args.appliance,
-                                          args.stream, args.wharf_ip, args.wharf_port, args.lease_appliance]):
+                                         args.stream, args.wharf_ip, args.wharf_port, args.lease_appliance,
+                                         args.populate_sprout_only]):
         print colored("Warning: ignoring all params\nrunning destroy procedure!", 'yellow', attrs=['bold'])
         return True
 
@@ -110,7 +119,7 @@ def main():
 
         config_obj = config_util(selected_population=selected_population,
                                  target_file_path=args.config_path,
-                                 config_params_kwargs=config_params)
+                                 config_params=config_params)
         config_obj.setup_env()
 
     else:
