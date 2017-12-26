@@ -3,7 +3,7 @@ set -xe
 
 pushd integration_tests
 echo "Setting basic env.yml"
-python env_maintainer.py --action setup --populate_sprout_only --sprout_url $SPROUT_URL --config_path conf/
+python env_maintainer.py --action setup --populate_sprout_only --sprout_url $SPROUT_URL --config_path $CONF_PATH
 
 echo "Decrypting credentials yaml"
 
@@ -14,6 +14,6 @@ python env_maintainer.py --action setup \
                          --stream $STREAM \
                          --wharf_ip $WHARF_IP \
                          --wharf_port $WHARF_PORT \
-                         --sprout_url $SPROUT_URL
-                         --config_path conf/
+                         --sprout_url $SPROUT_URL \
+                         --config_path $CONF_PATH
 set +x
