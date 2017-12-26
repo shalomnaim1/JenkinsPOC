@@ -17,11 +17,3 @@ python env_maintainer.py --action setup \
                          --sprout_url $SPROUT_URL
                          --config_path conf/
 set +x
-
-
-
-
-
-
-
-
