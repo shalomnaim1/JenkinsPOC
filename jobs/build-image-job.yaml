@@ -1,0 +1,12 @@
+- job-template:
+        name: "build-integration-test-image"
+        description: "Build docker image for integration tests"
+        project-type: freestyle
+        builders:
+                - shell: docker build -t integration_tests:testing -f JenkinsPOC/create-testing-env.dockerfile ."
+
+- project:
+        name: "build-image"
+        project-name: "JenkinsPOC"
+        jobs:
+                - build-integration-test-image
